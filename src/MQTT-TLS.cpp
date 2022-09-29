@@ -19,6 +19,10 @@ extern "C" int _gettimeofday( struct timeval *tv, void *tzvp )
     return 0;
 } // end _gettimeofday()
 
+mbedtls_ssl_context MQTT::getSSLcontext() {
+    return this->ssl;
+}
+
 MQTT::MQTT() {
     this->ip = NULL;
 }
@@ -46,6 +50,7 @@ MQTT::MQTT(uint8_t *ip, uint16_t port, void (*callback)(char*,uint8_t*,unsigned 
 MQTT::MQTT(uint8_t *ip, uint16_t port, void (*callback)(char*,uint8_t*,unsigned int), int maxpacketsize) {
     this->initialize(NULL, ip, port, MQTT_DEFAULT_KEEPALIVE, callback, maxpacketsize);
 }
+
 MQTT::MQTT(uint8_t *ip, uint16_t port, int keepalive, void (*callback)(char*,uint8_t*,unsigned int)) {
     this->initialize(NULL, ip, port, keepalive, callback, MQTT_MAX_PACKET_SIZE);
 }

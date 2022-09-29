@@ -119,6 +119,7 @@ typedef enum{
     MQTT_V311 = 4
 }MQTT_VERSION;
 
+    mbedtls_ssl_context ssl;
 private:
     TCPClient tcpClient;
 
@@ -146,7 +147,6 @@ private:
 
     /* TLS */
     mbedtls_entropy_context entropy;
-    mbedtls_ssl_context ssl;
     mbedtls_ssl_config conf;
     mbedtls_x509_crt cacert;
     mbedtls_x509_crt clicert;
@@ -170,6 +170,8 @@ private:
     bool publishComplete(uint16_t messageid);
 
 public:
+    mbedtls_ssl_context getSSLcontext();
+
     MQTT();
 
     MQTT(char* domain, uint16_t port, void (*callback)(char*,uint8_t*,unsigned int));
